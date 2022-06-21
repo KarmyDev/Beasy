@@ -10,30 +10,43 @@ namespace Beasy
 			// Lexer lexer = new ();
 			if (args.Length == 0) 
 			{
-				Console.WriteLine("    ____                       \n"
-				+ "   / __ )___  ____ ________  __   Beasy - Interpreted programming language\n"
-				+ "  / __  / _ \\/ __ `/ ___/ / / /           made by Karmy (2022)\n"
-				+ " / /_/ /  __/ /_/ (__  ) /_/ / \n"
-				+ "/_____/\\___/\\__,_/____/\\__, /     For more help type beasy --help\n"
-				+ "                      /____/   \n\n");
+				Console.WriteLine("\u001b[32m    ____\u001b[0m                       \n"
+				+ "\u001b[32m   / __ )___  ____ ________  __\u001b[0m\n"
+				+ "\u001b[32m  / __  / _ \\/ __ `/ ___/ / / /\u001b[0m   \u001b[32mBeasy\u001b[0m - Interpreted programming language\n"
+				+ "\u001b[32m / /_/ /  __/ /_/ (__  ) /_/ /\u001b[0m            made by Karmy (2022)\n"
+				+ "\u001b[32m/_____/\\___/\\__,_/____/\\__, /\u001b[0m\n"
+				+ "\u001b[32m                      /____/\u001b[0m      For more help type \u001b[32mbeasy \u001b[36m--help\u001b[0m\n");
 			}
 			else if (args.Length >= 1)
 			{
-				Lexer lexer = new ();
-				
-				List<Token> tokens = (List<Token>) lexer.Tokenize(args[0]);
-				
-				Console.WriteLine("tokens.Count = " + tokens.Count);
-				
-				foreach (Token token in tokens)
+				if (args[0] != "--help")
 				{
-					string prefix = tokens.Count - 1 == token.offset ? "L- " : "|- ";
+					Lexer lexer = new ();
 					
-					string firstRow = "\u001b[31m(" + token.offset + "/" + token.size + ")\u001b[0m\t";
-					string secondRow = $"[\u001b[32m{token.type.ToString()}\u001b[0m]";
-					string thirdRow = "\u001b[36m" + prefix + "\u001b[0m\u001b[41m" + token.value + "\u001b[0m";
+					List<Token> tokens = (List<Token>) lexer.Tokenize(args[0]);
 					
-					Console.WriteLine($"{firstRow:15} {secondRow:15} {thirdRow:15}");
+					Console.WriteLine("tokens.Count = " + tokens.Count);
+					
+					foreach (Token token in tokens)
+					{
+						string prefix = tokens.Count - 1 == token.offset ? "L- " : "|- ";
+						
+						string firstRow = "\u001b[31m(" + token.offset + "/" + token.size + ")\u001b[0m\t";
+						string secondRow = $"[\u001b[32m{token.type.ToString()}\u001b[0m]";
+						string thirdRow = "\u001b[36m" + prefix + "\u001b[0m\u001b[42m" + token.value + "\u001b[0m";
+						
+						Console.WriteLine($"{firstRow,10} {secondRow,20} {thirdRow,15}");
+					}
+				}
+				else
+				{
+					// Display help
+					Console.WriteLine("\u001b[32m    ____\u001b[0m                       \n"
+					+ "\u001b[32m   / __ )___  ____ ________  __\u001b[0m   \u001b[42mBeasy\u001b[0m - Interpreted programming language\n"
+					+ "\u001b[32m  / __  / _ \\/ __ `/ ___/ / / /\u001b[0m           made by Karmy (2022)\n"
+					+ "\u001b[32m / /_/ /  __/ /_/ (__  ) /_/ /\u001b[0m \n"
+					+ "\u001b[32m/_____/\\___/\\__,_/____/\\__, /\u001b[0m     For more help type \u001b[32mbeasy \u001b[36m--help\u001b[0m\n"
+					+ "\u001b[32m                      /____/\u001b[0m   \n\n");
 				}
 			}
 		}
